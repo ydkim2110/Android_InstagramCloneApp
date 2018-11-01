@@ -1,4 +1,4 @@
-package com.example.anti2110.instagramcloneapp.Home;
+package com.example.anti2110.instagramcloneapp.Utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
