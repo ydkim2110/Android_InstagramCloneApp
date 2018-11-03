@@ -5,6 +5,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 public class SquareImageView extends AppCompatImageView {
+
     public SquareImageView(Context context) {
         super(context);
     }
@@ -20,5 +21,7 @@ public class SquareImageView extends AppCompatImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
     }
+
 }

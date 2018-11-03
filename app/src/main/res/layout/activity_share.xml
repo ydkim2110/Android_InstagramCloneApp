@@ -6,26 +6,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relLayout1">
+            android:layout_height="match_parent"
+            android:id="@+id/relLayout1"
+            android:layout_marginBottom="50dp">
 
-            <include layout="@layout/snippet_top_editprofiletoolbar" />
+            <include layout="@layout/layout_center_viewpager" />
 
         </RelativeLayout>
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/relLayout1"
             android:id="@+id/relLayout2">
 
-            <include layout="@layout/snippet_center_editprofile" />
+            <include layout="@layout/layout_bottom_tabs"/>
 
         </RelativeLayout>
 

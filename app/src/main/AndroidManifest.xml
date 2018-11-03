@@ -3,6 +3,9 @@
     package="com.example.anti2110.instagramcloneapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -24,6 +27,7 @@
         <activity android:name=".Profile.AccountSettingsActivity"/>
         <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".Login.RegisterActivity"/>
+        <activity android:name=".Share.NextActivity"/>
     </application>
 
 </manifest>

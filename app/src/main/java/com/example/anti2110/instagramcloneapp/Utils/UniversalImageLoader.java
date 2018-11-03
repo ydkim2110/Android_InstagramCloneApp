@@ -54,7 +54,7 @@ public class UniversalImageLoader {
      * @param mProgressBar
      * @param append
      */
-    public static void setImages(String imageURL, ImageView image, final ProgressBar mProgressBar, String append) {
+    public static void setImage(String imageURL, ImageView image, final ProgressBar mProgressBar, String append) {
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(append + imageURL, image, new ImageLoadingListener() {
             @Override

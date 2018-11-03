@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         ProfileFragment fragment = new ProfileFragment();
         FragmentTransaction transaction = ProfileActivity.this.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(getString(R.string.profile_fragment));
+        //transaction.addToBackStack(getString(R.string.profile_fragment));
         transaction.commit();
     }
 
@@ -95,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
 //    private void setProfileImage() {
 //        Log.d(TAG, "setProfileImage: setting profile photo.");
 //        String imageURL = "cdn.pixabay.com/photo/2018/10/12/22/08/flamingo-3743094__340.jpg";
-//        UniversalImageLoader.setImages(imageURL, mProfilePhoto, mProgressBar, "https://");
+//        UniversalImageLoader.setImage(imageURL, mProfilePhoto, mProgressBar, "https://");
 //    }
 //
 //    private void setupActivityWidgets() {
