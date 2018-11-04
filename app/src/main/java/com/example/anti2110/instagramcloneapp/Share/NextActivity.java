@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anti2110.instagramcloneapp.Login.LoginActivity;
 import com.example.anti2110.instagramcloneapp.R;
@@ -33,9 +35,13 @@ public class NextActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseMethods mFirebaseMethods;
 
+    // widgets
+    private EditText mCaption;
+
     //vars
     private String mAppend = "file:/";
     private int imageCount = 0;
+    private String imageURL;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +49,8 @@ public class NextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_next);
         Log.d(TAG, "onCreate: started.");
         mFirebaseMethods = new FirebaseMethods(NextActivity.this);
-        
+        mCaption = findViewById(R.id.caption);
+
         setupFirebaseAuth();
 
         ImageView backArrow = findViewById(R.id.ivBackArrow);
@@ -62,6 +69,9 @@ public class NextActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to the final share screen.");
                 //upload the image to firebase
+                Toast.makeText(NextActivity.this, "Attempting to upload photo", Toast.LENGTH_SHORT).show();
+                String captipn = mCaption.getText().toString();
+                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), captipn, imageCount, imageURL);
             }
         });
 
@@ -91,7 +101,8 @@ public class NextActivity extends AppCompatActivity {
     private void setImage() {
         Intent intent = getIntent();
         ImageView image = findViewById(R.id.imageShare);
-        UniversalImageLoader.setImage(intent.getStringExtra(getString(R.string.selected_image)), image, null, mAppend);
+        imageURL = intent.getStringExtra(getString(R.string.selected_image));
+        UniversalImageLoader.setImage(imageURL, image, null, mAppend);
     }
     
     
