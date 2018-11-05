@@ -40,7 +40,6 @@ public class ShareActivity extends AppCompatActivity {
             verifyPermissions(Permissions.PERMISSIONS);
         }
 
-        // setupBottomNavigationView();
     }
 
     /**
@@ -69,6 +68,11 @@ public class ShareActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setText(getString(R.string.gallery));
         tabLayout.getTabAt(1).setText(getString(R.string.photo));
+    }
+
+    public int getTask() {
+        Log.d(TAG, "getTask: TASK: " + getIntent().getFlags());
+        return getIntent().getFlags();
     }
 
     /**
@@ -116,20 +120,6 @@ public class ShareActivity extends AppCompatActivity {
             return true;
         }
 
-    }
-
-
-    /**
-     * BottomNavigationView setup
-     */
-    private void setupBottomNavigationView() {
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(context, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
     }
 
 }

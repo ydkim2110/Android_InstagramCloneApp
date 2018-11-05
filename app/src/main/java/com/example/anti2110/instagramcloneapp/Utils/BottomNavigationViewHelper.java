@@ -1,5 +1,6 @@
 package com.example.anti2110.instagramcloneapp.Utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -27,7 +28,7 @@ public class BottomNavigationViewHelper {
         bottomNavigationViewEx.setTextVisibility(false);
     }
 
-    public static void enableNavigation(final Context context, BottomNavigationViewEx view) {
+    public static void enableNavigation(final Context context, final Activity callingActivity, BottomNavigationViewEx view) {
         view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -49,7 +50,9 @@ public class BottomNavigationViewHelper {
                         intent = new Intent(context, ProfileActivity.class);
                         break;
                 }
-                context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                context.startActivity(intent);
+                callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                //.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK)
                 return false;
             }
         });

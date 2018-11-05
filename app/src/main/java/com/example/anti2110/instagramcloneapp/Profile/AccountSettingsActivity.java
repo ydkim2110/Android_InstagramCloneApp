@@ -2,6 +2,7 @@ package com.example.anti2110.instagramcloneapp.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 
 import com.example.anti2110.instagramcloneapp.R;
 import com.example.anti2110.instagramcloneapp.Utils.BottomNavigationViewHelper;
+import com.example.anti2110.instagramcloneapp.Utils.FirebaseMethods;
 import com.example.anti2110.instagramcloneapp.Utils.SectionsStatePagerAdapter;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -29,7 +31,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private static final int ACTIVITY_NUM = 4;
 
     private Context mContext;
-    private SectionsStatePagerAdapter mPagerAdapter;
+    public SectionsStatePagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
     private RelativeLayout mRelativeLayout;
     
@@ -59,7 +61,30 @@ public class AccountSettingsActivity extends AppCompatActivity {
     }
 
     private void getIncomingIntent() {
+        Log.d(TAG, "getIncomingIntent: started.");
         Intent intent = getIntent();
+
+        if (intent.hasExtra(getString(R.string.selected_image)) || intent.hasExtra(getString(R.string.selected_bitmap))) {
+            // if there is an imageURL attached as on extra, then it was chosen from the gallery/photo fragment
+            Log.d(TAG, "getIncomingIntent: New incoming imageURL.");
+            if (intent.getStringExtra(getString(R.string.return_to_fragment)).equals(getString(R.string.edit_profile_fragment))) {
+                Log.d(TAG, "getIncomingIntent: set the new profile photo.");
+
+                if (intent.hasExtra(getString(R.string.selected_image))) {
+                    // set the new profile photo
+                    FirebaseMethods firebaseMethods = new FirebaseMethods(AccountSettingsActivity.this);
+                    firebaseMethods.uploadNewPhoto(getString(R.string.profile_photo),
+                            null, 0, intent.getStringExtra(getString(R.string.selected_image)), null);
+                } else if (intent.hasExtra(getString(R.string.selected_bitmap))) {
+                    // set the new profile photo
+                    FirebaseMethods firebaseMethods = new FirebaseMethods(AccountSettingsActivity.this);
+                    firebaseMethods.uploadNewPhoto(getString(R.string.profile_photo), null, 0, null,
+                            (Bitmap) intent.getParcelableExtra(getString(R.string.selected_bitmap)));
+                }
+
+            }
+        }
+
 
         if (intent.hasExtra(getString(R.string.calling_activity))) {
             Log.d(TAG, "getIncomingIntent: received incoming intent from " + getString(R.string.profile_activity));
@@ -73,7 +98,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         mPagerAdapter.addFragment(new SignOutFragment(), getString(R.string.sign_out_fragment)); // fragment 1
     }
     
-    private void setViewPager(int fragmentNumber) {
+    public void setViewPager(int fragmentNumber) {
         mRelativeLayout.setVisibility(View.GONE);
         Log.d(TAG, "setViewPager: navigating to fragment #: "+fragmentNumber);
         mViewPager.setAdapter(mPagerAdapter);
@@ -109,7 +134,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(mContext, this,bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
